@@ -13,7 +13,7 @@ export const Navigation = () => {
           <div className="flex items-center gap-8">
             <Link to="/" className="flex items-center gap-2">
               <Shield className="h-8 w-8 text-primary" />
-              <span className="text-xl font-bold">The Genesis Vault</span>
+              <span className="text-xl font-bold">Aethel</span>
             </Link>
             
             <div className="hidden md:flex items-center gap-1">

@@ -24,7 +24,7 @@ const Index = () => {
           </h1>
           
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            The Genesis Vault establishes permanent, verifiable ownership records for digital and
+            Aethel establishes permanent, verifiable ownership records for digital and
             physical creative assets through DAO-verified blockchain stamps.
           </p>
           
@@ -101,7 +101,7 @@ const Index = () => {
       {/* How It Works */}
       <section className="container mx-auto px-6 py-16">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">How The Genesis Vault Works</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">How Aethel Works</h2>
           
           <div className="space-y-6">
             <Card className="border-border bg-card">
@@ -164,7 +164,7 @@ const Index = () => {
           <CardContent className="pt-12 pb-12 text-center">
             <h2 className="text-3xl font-bold mb-4">Ready to Establish Your Provenance?</h2>
             <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Join creators worldwide who trust The Genesis Vault for immutable ownership records
+              Join creators worldwide who trust Aethel for immutable ownership records
               and transparent licensing on the Base L2 Network.
             </p>
             <Link to="/registry">

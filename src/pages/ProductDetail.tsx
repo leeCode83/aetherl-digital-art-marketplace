@@ -19,7 +19,7 @@ const ProductDetail = () => {
     creator: "0x3B9a...4C7e",
     price: 50,
     category: "Photo",
-    description: "An original digital artwork representing the convergence of technology and human expression. This piece has been verified by the Genesis Vault DAO and carries immutable provenance on the Base L2 Network.",
+    description: "An original digital artwork representing the convergence of technology and human expression. This piece has been verified by the Aethel DAO and carries immutable provenance on the Base L2 Network.",
     gotId: "0",
     hash: "0x7a3f8b...c92b",
     license: "CC BY-NC-ND",
