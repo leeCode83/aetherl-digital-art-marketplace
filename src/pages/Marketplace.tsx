@@ -1,182 +1,255 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Shield, ExternalLink, Lock, Users, DollarSign, FileText } from "lucide-react";
-import { toast } from "sonner";
+import { Input } from "@/components/ui/input";
+import { Shield, Search, Music, Image as ImageIcon, Video, BookOpen } from "lucide-react";
+
+type Category = "All" | "Music" | "Photo" | "Comic" | "Video";
 
 const Marketplace = () => {
-  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<Category>("All");
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const handlePurchase = () => {
-    if (!agreedToTerms) {
-      toast.error("Please agree to the Consumption License Terms to proceed");
-      return;
-    }
-    toast.success("CLT purchase successful! License proof sent to your wallet");
-  };
+  const categories: { name: Category; icon: any }[] = [
+    { name: "All", icon: Shield },
+    { name: "Music", icon: Music },
+    { name: "Photo", icon: ImageIcon },
+    { name: "Comic", icon: BookOpen },
+    { name: "Video", icon: Video },
+  ];
+
+  const products = [
+    {
+      id: "1",
+      title: "Digital Masterpiece #2847",
+      creator: "0x3B9a...4C7e",
+      price: 50,
+      category: "Photo",
+      cltsSold: 45,
+      verified: true,
+    },
+    {
+      id: "2",
+      title: "Sonic Waves Collection",
+      creator: "0x7F2c...8A1d",
+      price: 30,
+      category: "Music",
+      cltsSold: 128,
+      verified: true,
+    },
+    {
+      id: "3",
+      title: "Abstract Thoughts Series",
+      creator: "0x9C4b...5E3f",
+      price: 75,
+      category: "Photo",
+      cltsSold: 12,
+      verified: true,
+    },
+    {
+      id: "4",
+      title: "Origin Story: Chapter 1",
+      creator: "0x2A8f...9D6c",
+      price: 45,
+      category: "Comic",
+      cltsSold: 89,
+      verified: true,
+    },
+    {
+      id: "5",
+      title: "Urban Symphony",
+      creator: "0x5E1d...3B7a",
+      price: 60,
+      category: "Video",
+      cltsSold: 34,
+      verified: true,
+    },
+    {
+      id: "6",
+      title: "Ethereal Melodies Vol. 2",
+      creator: "0x8D3a...4F9e",
+      price: 25,
+      category: "Music",
+      cltsSold: 203,
+      verified: true,
+    },
+    {
+      id: "7",
+      title: "Neon Dreams",
+      creator: "0x6B9c...2C8d",
+      price: 55,
+      category: "Photo",
+      cltsSold: 67,
+      verified: true,
+    },
+    {
+      id: "8",
+      title: "Tales of Tomorrow",
+      creator: "0x4C7e...1A5b",
+      price: 40,
+      category: "Comic",
+      cltsSold: 156,
+      verified: true,
+    },
+    {
+      id: "9",
+      title: "Motion Chronicles",
+      creator: "0x1F5a...8D3c",
+      price: 85,
+      category: "Video",
+      cltsSold: 28,
+      verified: true,
+    },
+    {
+      id: "10",
+      title: "Quantum Beats",
+      creator: "0x3D8f...6E2a",
+      price: 35,
+      category: "Music",
+      cltsSold: 142,
+      verified: true,
+    },
+    {
+      id: "11",
+      title: "Cosmic Perspectives",
+      creator: "0x7A2c...9F4b",
+      price: 70,
+      category: "Photo",
+      cltsSold: 53,
+      verified: true,
+    },
+    {
+      id: "12",
+      title: "Heroes United Issue #5",
+      creator: "0x9E4d...5C1f",
+      price: 38,
+      category: "Comic",
+      cltsSold: 198,
+      verified: true,
+    },
+  ];
+
+  const filteredProducts = products.filter((product) => {
+    const matchesCategory = selectedCategory === "All" || product.category === selectedCategory;
+    const matchesSearch = product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         product.creator.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
       
       <div className="container mx-auto px-6 py-12">
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Asset Display */}
-          <div className="lg:col-span-2 space-y-6">
-            <div className="aspect-video bg-secondary rounded-lg border border-border flex items-center justify-center overflow-hidden">
-              <div className="text-center p-12">
-                <Shield className="h-32 w-32 mx-auto text-primary/20 mb-4" />
-                <p className="text-muted-foreground">Asset Preview</p>
-              </div>
-            </div>
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold mb-2">Marketplace</h1>
+          <p className="text-muted-foreground">
+            Discover and license verified creative works with immutable provenance
+          </p>
+        </div>
 
-            <Card className="border-border">
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <CardTitle className="text-3xl mb-2">
-                      Digital Masterpiece #2847
-                    </CardTitle>
-                    <p className="text-muted-foreground">
-                      Created by <span className="text-primary font-semibold">0x3B9a...4C7e</span>
-                    </p>
-                  </div>
-                  <Badge variant="secondary" className="bg-success/20 text-success border-success/30">
-                    Verified
-                  </Badge>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-foreground leading-relaxed">
-                  An original digital artwork representing the convergence of technology and human
-                  expression. This piece has been verified by the Genesis Vault DAO and carries
-                  immutable provenance on the Base L2 Network.
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Provenance Panel */}
-            <Card className="border-border bg-card">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Lock className="h-5 w-5 text-primary" />
-                  Genesis Origin Token (GOT) - Immutable Provenance
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="p-4 bg-secondary rounded-lg border border-border">
-                    <p className="text-xs text-muted-foreground mb-1">GOT ID</p>
-                    <p className="font-mono font-bold text-primary text-lg">#0</p>
-                  </div>
-                  <div className="p-4 bg-secondary rounded-lg border border-border">
-                    <p className="text-xs text-muted-foreground mb-1">Blockchain Hash</p>
-                    <p className="font-mono text-sm truncate">
-                      0x7a3f8b...c92b
-                    </p>
-                  </div>
-                </div>
-
-                <div className="p-4 bg-secondary rounded-lg border border-border">
-                  <p className="text-xs text-muted-foreground mb-2">Original Creator Wallet</p>
-                  <div className="flex items-center justify-between">
-                    <p className="font-mono font-semibold">0x3B9a7F...4C7e</p>
-                    <Button variant="ghost" size="sm">
-                      <ExternalLink className="h-4 w-4" />
-                      View on Explorer
-                    </Button>
-                  </div>
-                </div>
-
-                <Button variant="outline" size="sm" className="w-full">
-                  <Users className="h-4 w-4" />
-                  View Full DAO Verification History
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Purchase Panel */}
-          <div className="space-y-6">
-            <Card className="border-border sticky top-6">
-              <CardHeader>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-sm text-muted-foreground">License Price</span>
-                  <div className="text-right">
-                    <p className="text-4xl font-bold text-primary">50</p>
-                    <p className="text-sm text-muted-foreground">USDC</p>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="p-4 bg-secondary/50 rounded-lg border border-border space-y-3">
-                  <div className="flex items-start gap-2">
-                    <FileText className="h-5 w-5 text-accent mt-0.5 shrink-0" />
-                    <div>
-                      <p className="font-semibold mb-1">License Type</p>
-                      <p className="text-sm text-muted-foreground">
-                        Creative Commons BY-NC-ND
-                      </p>
-                      <p className="text-xs text-muted-foreground mt-2">
-                        Attribution - NonCommercial - NoDerivatives
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3 p-4 bg-card border border-border rounded-lg">
-                    <Checkbox
-                      id="terms"
-                      checked={agreedToTerms}
-                      onCheckedChange={(checked) => setAgreedToTerms(checked as boolean)}
-                      className="mt-1"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="text-sm leading-relaxed cursor-pointer"
-                    >
-                      I agree to the{" "}
-                      <span className="text-primary font-semibold underline">
-                        Consumption License Terms (CLT)
-                      </span>{" "}
-                      and understand that this purchase provides legal proof of licensed use
-                    </label>
-                  </div>
-
-                  <Button
-                    className="w-full"
-                    size="lg"
-                    onClick={handlePurchase}
-                    disabled={!agreedToTerms}
-                  >
-                    <Shield className="h-5 w-5" />
-                    Buy License & Receive CLT
-                  </Button>
-                </div>
-
-                <div className="pt-4 border-t border-border">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">Distribution Tracker</span>
-                    <Badge variant="secondary">
-                      <DollarSign className="h-3 w-3" />
-                      CLTs Sold: 45 / 1,000
-                    </Badge>
-                  </div>
-                  <div className="mt-3 h-2 bg-secondary rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-primary transition-all duration-300"
-                      style={{ width: "4.5%" }}
-                    />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+        {/* Search Bar */}
+        <div className="mb-8">
+          <div className="relative max-w-2xl">
+            <Search className="absolute left-4 top-3.5 h-5 w-5 text-muted-foreground" />
+            <Input
+              placeholder="Search by title or creator..."
+              className="pl-12 h-12"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
           </div>
         </div>
+
+        {/* Category Filters */}
+        <div className="flex flex-wrap gap-3 mb-8">
+          {categories.map((category) => {
+            const Icon = category.icon;
+            const isActive = selectedCategory === category.name;
+            return (
+              <Button
+                key={category.name}
+                variant={isActive ? "default" : "outline"}
+                onClick={() => setSelectedCategory(category.name)}
+                className="gap-2"
+              >
+                <Icon className="h-4 w-4" />
+                {category.name}
+              </Button>
+            );
+          })}
+        </div>
+
+        {/* Results Count */}
+        <div className="mb-6">
+          <p className="text-sm text-muted-foreground">
+            Showing <span className="font-semibold text-foreground">{filteredProducts.length}</span> results
+          </p>
+        </div>
+
+        {/* Products Grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredProducts.map((product) => (
+            <Link key={product.id} to={`/marketplace/${product.id}`}>
+              <Card className="border-border hover:border-primary/50 transition-all duration-300 h-full group cursor-pointer">
+                <CardContent className="pt-6">
+                  {/* Asset Preview */}
+                  <div className="aspect-square bg-secondary rounded-lg border border-border flex items-center justify-center mb-4 overflow-hidden group-hover:border-primary/30 transition-colors">
+                    <Shield className="h-16 w-16 text-primary/20 group-hover:text-primary/40 transition-colors" />
+                  </div>
+
+                  {/* Product Info */}
+                  <div className="space-y-3">
+                    <div className="flex items-start justify-between gap-2">
+                      <h3 className="font-semibold leading-tight group-hover:text-primary transition-colors line-clamp-2">
+                        {product.title}
+                      </h3>
+                      {product.verified && (
+                        <Badge variant="secondary" className="bg-success/20 text-success border-success/30 shrink-0">
+                          <Shield className="h-3 w-3" />
+                        </Badge>
+                      )}
+                    </div>
+
+                    <div>
+                      <p className="text-xs text-muted-foreground mb-1">Creator</p>
+                      <p className="text-sm font-mono">{product.creator}</p>
+                    </div>
+
+                    <div className="flex items-center justify-between pt-2 border-t border-border">
+                      <div>
+                        <p className="text-xs text-muted-foreground mb-1">Price</p>
+                        <p className="text-xl font-bold text-primary">{product.price} USDC</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-xs text-muted-foreground mb-1">CLTs Sold</p>
+                        <p className="text-sm font-semibold">{product.cltsSold}</p>
+                      </div>
+                    </div>
+
+                    <Badge variant="secondary" className="w-full justify-center">
+                      {product.category}
+                    </Badge>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
+        </div>
+
+        {/* Empty State */}
+        {filteredProducts.length === 0 && (
+          <div className="text-center py-16">
+            <Shield className="h-16 w-16 mx-auto text-muted-foreground/30 mb-4" />
+            <h3 className="text-xl font-semibold mb-2">No products found</h3>
+            <p className="text-muted-foreground">
+              Try adjusting your search or filter criteria
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
