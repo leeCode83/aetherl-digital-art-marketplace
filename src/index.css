@@ -8,42 +8,42 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Genesis Vault Dark Mode Design System */
-    /* Base: Deep charcoal and navy foundation */
-    --background: 220 20% 8%;
-    --foreground: 210 20% 98%;
+    /* Aethel Black & White Design System */
+    /* White background with black text */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
 
-    --card: 220 18% 12%;
-    --card-foreground: 210 20% 98%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 0%;
 
-    --popover: 220 18% 10%;
-    --popover-foreground: 210 20% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
 
-    /* Primary: Electric Cyan for main actions */
-    --primary: 190 100% 50%;
-    --primary-foreground: 220 20% 8%;
+    /* Primary: Black for main actions */
+    --primary: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Secondary: Deep panel backgrounds */
-    --secondary: 220 16% 16%;
-    --secondary-foreground: 210 20% 98%;
+    /* Secondary: Light gray backgrounds */
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 0%;
 
-    --muted: 220 15% 20%;
-    --muted-foreground: 210 10% 60%;
+    --muted: 0 0% 92%;
+    --muted-foreground: 0 0% 40%;
 
-    /* Accent: Security Orange */
-    --accent: 24 100% 50%;
-    --accent-foreground: 220 20% 8%;
+    /* Accent: Black */
+    --accent: 0 0% 0%;
+    --accent-foreground: 0 0% 100%;
 
-    /* Success: Bright Emerald */
-    --success: 160 100% 50%;
-    --success-foreground: 220 20% 8%;
+    /* Success: Dark gray */
+    --success: 0 0% 20%;
+    --success-foreground: 0 0% 100%;
 
-    --destructive: 0 85% 60%;
-    --destructive-foreground: 210 20% 98%;
+    --destructive: 0 0% 0%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 24%;
-    --input: 220 15% 18%;
-    --ring: 190 100% 50%;
+    --border: 0 0% 88%;
+    --input: 0 0% 96%;
+    --ring: 0 0% 0%;
 
     --radius: 0.5rem;
   }
