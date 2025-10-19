@@ -26,7 +26,9 @@ const Marketplace = () => {
       id: "1",
       title: "Digital Masterpiece #2847",
       creator: "0x3B9a...4C7e",
-      price: 50,
+      priceMin: 5,
+      priceMax: 50,
+      gotId: "GOT-2847",
       category: "Photo",
       cltsSold: 45,
       verified: true,
@@ -35,7 +37,9 @@ const Marketplace = () => {
       id: "2",
       title: "Sonic Waves Collection",
       creator: "0x7F2c...8A1d",
-      price: 30,
+      priceMin: 10,
+      priceMax: 30,
+      gotId: "GOT-1523",
       category: "Music",
       cltsSold: 128,
       verified: true,
@@ -44,7 +48,9 @@ const Marketplace = () => {
       id: "3",
       title: "Abstract Thoughts Series",
       creator: "0x9C4b...5E3f",
-      price: 75,
+      priceMin: 15,
+      priceMax: 75,
+      gotId: "GOT-8942",
       category: "Photo",
       cltsSold: 12,
       verified: true,
@@ -53,7 +59,9 @@ const Marketplace = () => {
       id: "4",
       title: "Origin Story: Chapter 1",
       creator: "0x2A8f...9D6c",
-      price: 45,
+      priceMin: 8,
+      priceMax: 45,
+      gotId: "GOT-3756",
       category: "Comic",
       cltsSold: 89,
       verified: true,
@@ -62,7 +70,9 @@ const Marketplace = () => {
       id: "5",
       title: "Urban Symphony",
       creator: "0x5E1d...3B7a",
-      price: 60,
+      priceMin: 20,
+      priceMax: 60,
+      gotId: "GOT-6182",
       category: "Video",
       cltsSold: 34,
       verified: true,
@@ -71,7 +81,9 @@ const Marketplace = () => {
       id: "6",
       title: "Ethereal Melodies Vol. 2",
       creator: "0x8D3a...4F9e",
-      price: 25,
+      priceMin: 5,
+      priceMax: 25,
+      gotId: "GOT-9234",
       category: "Music",
       cltsSold: 203,
       verified: true,
@@ -80,7 +92,9 @@ const Marketplace = () => {
       id: "7",
       title: "Neon Dreams",
       creator: "0x6B9c...2C8d",
-      price: 55,
+      priceMin: 12,
+      priceMax: 55,
+      gotId: "GOT-4521",
       category: "Photo",
       cltsSold: 67,
       verified: true,
@@ -89,7 +103,9 @@ const Marketplace = () => {
       id: "8",
       title: "Tales of Tomorrow",
       creator: "0x4C7e...1A5b",
-      price: 40,
+      priceMin: 10,
+      priceMax: 40,
+      gotId: "GOT-7893",
       category: "Comic",
       cltsSold: 156,
       verified: true,
@@ -98,7 +114,9 @@ const Marketplace = () => {
       id: "9",
       title: "Motion Chronicles",
       creator: "0x1F5a...8D3c",
-      price: 85,
+      priceMin: 25,
+      priceMax: 85,
+      gotId: "GOT-2047",
       category: "Video",
       cltsSold: 28,
       verified: true,
@@ -107,7 +125,9 @@ const Marketplace = () => {
       id: "10",
       title: "Quantum Beats",
       creator: "0x3D8f...6E2a",
-      price: 35,
+      priceMin: 8,
+      priceMax: 35,
+      gotId: "GOT-5638",
       category: "Music",
       cltsSold: 142,
       verified: true,
@@ -116,7 +136,9 @@ const Marketplace = () => {
       id: "11",
       title: "Cosmic Perspectives",
       creator: "0x7A2c...9F4b",
-      price: 70,
+      priceMin: 15,
+      priceMax: 70,
+      gotId: "GOT-8127",
       category: "Photo",
       cltsSold: 53,
       verified: true,
@@ -125,7 +147,9 @@ const Marketplace = () => {
       id: "12",
       title: "Heroes United Issue #5",
       creator: "0x9E4d...5C1f",
-      price: 38,
+      priceMin: 7,
+      priceMax: 38,
+      gotId: "GOT-3491",
       category: "Comic",
       cltsSold: 198,
       verified: true,
@@ -215,14 +239,19 @@ const Marketplace = () => {
                     </div>
 
                     <div>
+                      <p className="text-xs text-muted-foreground mb-1">GOT ID</p>
+                      <p className="text-sm font-mono text-primary">{product.gotId}</p>
+                    </div>
+
+                    <div>
                       <p className="text-xs text-muted-foreground mb-1">Creator</p>
                       <p className="text-sm font-mono">{product.creator}</p>
                     </div>
 
                     <div className="flex items-center justify-between pt-2 border-t border-border">
                       <div>
-                        <p className="text-xs text-muted-foreground mb-1">Price</p>
-                        <p className="text-xl font-bold text-primary">{product.price} USDC</p>
+                        <p className="text-xs text-muted-foreground mb-1">Price Range</p>
+                        <p className="text-lg font-bold text-primary">${product.priceMin} - ${product.priceMax}</p>
                       </div>
                       <div className="text-right">
                         <p className="text-xs text-muted-foreground mb-1">CLTs Sold</p>

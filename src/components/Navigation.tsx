@@ -27,15 +27,6 @@ export const Navigation = () => {
                   Home
                 </Button>
               </Link>
-              <Link to="/registry">
-                <Button 
-                  variant="ghost" 
-                  size="sm"
-                  className={isActive("/registry") ? "bg-secondary" : ""}
-                >
-                  Stamp Asset
-                </Button>
-              </Link>
               <Link to="/marketplace">
                 <Button 
                   variant="ghost" 
@@ -51,7 +42,16 @@ export const Navigation = () => {
                   size="sm"
                   className={isActive("/vault") ? "bg-secondary" : ""}
                 >
-                  My Vault
+                  Dashboard
+                </Button>
+              </Link>
+              <Link to="/dao-verifier">
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  className={isActive("/dao-verifier") ? "bg-secondary" : ""}
+                >
+                  DAO Verifier
                 </Button>
               </Link>
             </div>

@@ -8,6 +8,7 @@ import Registry from "./pages/Registry";
 import Marketplace from "./pages/Marketplace";
 import ProductDetail from "./pages/ProductDetail";
 import Vault from "./pages/Vault";
+import DAOVerifier from "./pages/DAOVerifier";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/marketplace/:id" element={<ProductDetail />} />
           <Route path="/vault" element={<Vault />} />
+          <Route path="/dao-verifier" element={<DAOVerifier />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
