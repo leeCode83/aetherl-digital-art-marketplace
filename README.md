@@ -1,6 +1,6 @@
 # 🏛️ Aethel: Marketplace Provenance & Lisensi Digital Terdesentralisasi
 
-*Aethel* adalah marketplace aset kreatif digital yang didesain dengan prinsip *bukti kepemilikan abadi (*immutable provenance)* sebagai fondasinya. Kami memberdayakan kreator dengan memisahkan kepemilikan inti dari penggunaan komersial, menyediakan platform yang aman untuk menjual berbagai tingkat lisensi (CLT) yang diverifikasi secara permanen di *blockchain.
+*Aethel* adalah marketplace aset kreatif digital yang didesain dengan prinsip *bukti kepemilikan abadi (immutable provenance)* sebagai fondasinya. Kami memberdayakan kreator dengan memisahkan kepemilikan inti dari penggunaan komersial, menyediakan platform yang aman untuk menjual berbagai tingkat lisensi (CLT) yang diverifikasi secara permanen di *blockchain*.
 
 ---
 
@@ -8,7 +8,7 @@
 
 *Pernyataan Nilai (Value Proposition):*
 
-Aethel memberdayakan kreator dengan kontrol penuh melalui pemisahan kepemilikan inti (*GOT) dari penggunaan komersial. Kami menyediakan *marketplace tepercaya untuk menjual lisensi berjenjang (*CLT) secara aman, didukung oleh catatan kepemilikan transparan dan permanen di Jaringan **Base L2* (dibuat untuk efisiensi biaya).
+Aethel memberdayakan kreator dengan kontrol penuh melalui pemisahan kepemilikan inti (*GOT*) dari penggunaan komersial. Kami menyediakan *marketplace* tepercaya untuk menjual lisensi berjenjang (*CLT*) secara aman, didukung oleh catatan kepemilikan transparan dan permanen di Jaringan *Base L2* (dibuat untuk efisiensi biaya).
 
 *Masalah yang Diselesaikan:*
 
@@ -28,7 +28,7 @@ Proyek ini dibangun di sekitar arsitektur Smart Contract berlapis yang menghasil
 
 ### 2. Marketplace & Lisensi (Monetisasi)
 
-* *Consumption License Token (CLT | ERC-1155 ID 1-6):* Token yang mewakili *Bukti Lisensi Penggunaan Legal. CLT dicetak setelah transaksi berhasil dan **tidak dapat dipindahtangankan*, mengikat lisensi ke dompet pembeli untuk tujuan pelacakan.
+* *Consumption License Token (CLT | ERC-1155 ID 1-6):* Token yang mewakili *Bukti Lisensi Penggunaan Legal*. CLT dicetak setelah transaksi berhasil dan **tidak dapat dipindahtangankan*, mengikat lisensi ke dompet pembeli untuk tujuan pelacakan.
 * *Multi-Tiered Licensing:* Kreator dapat menentukan *berbagai tingkat lisensi Creative Commons* dengan harga berbeda (misalnya, Lisensi Pribadi harga rendah, Lisensi Komersial harga tinggi) untuk satu karya yang sama.
 * *Seamless Checkout:* Proses pembelian menggunakan Stablecoin dengan alur Web2 yang mulus, di mana Smart Contract Marketplace secara otomatis menghitung fee dan royalti, kemudian memicu minting *CLT* ke pembeli.
 * *Creator Dashboard:* Antarmuka untuk mengelola portofolio GOT, mengatur harga lisensi, dan memantau status verifikasi karya.
