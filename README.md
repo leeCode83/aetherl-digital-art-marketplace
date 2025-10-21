@@ -1,73 +1,52 @@
-# Welcome to your Lovable project
+# 🏛️ Aethel: Marketplace Provenance & Lisensi Digital Terdesentralisasi
 
-## Project info
+*Aethel* adalah marketplace aset kreatif digital yang didesain dengan prinsip *bukti kepemilikan abadi (*immutable provenance)* sebagai fondasinya. Kami memberdayakan kreator dengan memisahkan kepemilikan inti dari penggunaan komersial, menyediakan platform yang aman untuk menjual berbagai tingkat lisensi (CLT) yang diverifikasi secara permanen di *blockchain.
 
-**URL**: https://lovable.dev/projects/af0cfda7-0566-4ab1-9409-11354d645b05
+---
 
-## How can I edit this code?
+## 🌟 Visi dan Nilai Inti Proyek
 
-There are several ways of editing your application.
+*Pernyataan Nilai (Value Proposition):*
 
-**Use Lovable**
+Aethel memberdayakan kreator dengan kontrol penuh melalui pemisahan kepemilikan inti (*GOT) dari penggunaan komersial. Kami menyediakan *marketplace tepercaya untuk menjual lisensi berjenjang (*CLT) secara aman, didukung oleh catatan kepemilikan transparan dan permanen di Jaringan **Base L2* (dibuat untuk efisiensi biaya).
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/af0cfda7-0566-4ab1-9409-11354d645b05) and start prompting.
+*Masalah yang Diselesaikan:*
 
-Changes made via Lovable will be committed automatically to this repo.
+Kreator tidak memiliki cara *universal* untuk mencatat bukti penciptaan (timestamp) yang tidak dapat disanggah. Aethel menyelesaikan ini dengan menyediakan mekanisme Genesis Stamp yang diaudit, mengubah aset kreatif menjadi aset yang sepenuhnya terautentikasi dan siap untuk diperdagangkan secara patuh hukum.
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🛠️ Fitur Utama Aplikasi
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Proyek ini dibangun di sekitar arsitektur Smart Contract berlapis yang menghasilkan dua jenis aset NFT inti:
 
-Follow these steps:
+### 1. Proof of Provenance & Ownership
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+* *Genesis Ownership Token (GOT | ERC-1155 ID 0):* Token yang mewakili *Hak Cipta Primer dan Bukti Kepemilikan Abadi*. GOT dapat dipindahtangankan (dijual di pasar sekunder) untuk mengalihkan hak ekonomi karya.
+* *Verifikasi Kurator Eksternal:* Setiap karya yang diajukan untuk Stamp melalui ProjectVault melalui proses verifikasi satu tahap oleh *Oracle Kurator* Off-Chain. Stake Stablecoin kreator berfungsi sebagai jaminan keamanan selama proses ini.
+* *Decentralized Provenance Record:* Setiap karya dicatat oleh workHash unik dalam ProjectVault kreator, menjadi catatan sejarah yang independen dari marketplace mana pun.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### 2. Marketplace & Lisensi (Monetisasi)
 
-# Step 3: Install the necessary dependencies.
-npm i
+* *Consumption License Token (CLT | ERC-1155 ID 1-6):* Token yang mewakili *Bukti Lisensi Penggunaan Legal. CLT dicetak setelah transaksi berhasil dan **tidak dapat dipindahtangankan*, mengikat lisensi ke dompet pembeli untuk tujuan pelacakan.
+* *Multi-Tiered Licensing:* Kreator dapat menentukan *berbagai tingkat lisensi Creative Commons* dengan harga berbeda (misalnya, Lisensi Pribadi harga rendah, Lisensi Komersial harga tinggi) untuk satu karya yang sama.
+* *Seamless Checkout:* Proses pembelian menggunakan Stablecoin dengan alur Web2 yang mulus, di mana Smart Contract Marketplace secara otomatis menghitung fee dan royalti, kemudian memicu minting *CLT* ke pembeli.
+* *Creator Dashboard:* Antarmuka untuk mengelola portofolio GOT, mengatur harga lisensi, dan memantau status verifikasi karya.
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+---
 
-**Edit a file directly in GitHub**
+## ⚙️ Tumpukan Teknologi (Tech Stack)
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Aethel dirancang untuk berjalan secara efisien di Layer 2 (L2) EVM, dengan Sepolia Testnet digunakan sebagai lingkungan pengembangan dan pengujian awal.
 
-**Use GitHub Codespaces**
+| Komponen | Teknologi | Keterangan |
+| :--- | :--- | :--- |
+| *Blockchain Target* | *Base Network* (L2 EVM) | Target utama untuk efisiensi biaya dan kecepatan transaksi. |
+| *Testing Environment* | *Sepolia Testnet* | Lingkungan pengujian dan staging saat ini. |
+| *Smart Contract* | *Solidity ^0.8.30 (Foundry)* | Bahasa kontrak. Menggunakan standar keamanan OpenZeppelin. |
+| *Arsitektur SC* | *Factory Pattern & ERC-1155* | Memungkinkan skalabilitas: *AethelFactory* (menciptakan ProjectVault), *ProjectVault* (Hub Kreator), *ProjectAssets* (NFT GOT/CLT). |
+| *Frontend* | *React & TypeScript* | Membangun antarmuka pengguna (UI) yang powerful, modular, dan aman (tipografi statis). |
+| *Bundler/Dev Tool| **Vite* | Digunakan untuk pengembangan frontend yang cepat dan modern. |
+| *Aset Data* | *IPFS / Filecoin* | Digunakan untuk menyimpan metadata NFT dan file provenance secara abadi dan terdesentralisasi. |
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/af0cfda7-0566-4ab1-9409-11354d645b05) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+---

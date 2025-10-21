@@ -222,7 +222,7 @@ const Marketplace = () => {
                 <CardContent className="pt-6">
                   {/* Asset Preview */}
                   <div className="aspect-square bg-secondary rounded-lg border border-border flex items-center justify-center mb-4 overflow-hidden group-hover:border-primary/30 transition-colors">
-                    <Shield className="h-16 w-16 text-primary/20 group-hover:text-primary/40 transition-colors" />
+                    <img src="/assets/TestDigital.jpg" alt="" />
                   </div>
 
                   {/* Product Info */}

@@ -21,7 +21,7 @@ const ProductDetail = () => {
     title: "Digital Masterpiece #2847",
     creator: "0x3B9a...4C7e",
     category: "Photo",
-    description: "An original digital artwork representing the convergence of technology and human expression. This piece has been verified by the Aethel DAO and carries immutable provenance on the Base L2 Network.",
+    description: "An original digital artwork representing the convergence of technology and human expression. This piece has been verified by the External Curator and carries immutable provenance on the Base L2 Network.",
     gotId: "GOT-2847",
     hash: "0x7a3f8b...c92b",
     cltsSold: 45,
@@ -59,10 +59,7 @@ const ProductDetail = () => {
           {/* Main Asset Display */}
           <div className="lg:col-span-2 space-y-6">
             <div className="aspect-video bg-secondary rounded-lg border border-border flex items-center justify-center overflow-hidden">
-              <div className="text-center p-12">
-                <Shield className="h-32 w-32 mx-auto text-primary/20 mb-4" />
-                <p className="text-muted-foreground">Asset Preview</p>
-              </div>
+                <img src="/assets/TestDigital.jpg" alt="" />
             </div>
 
             <Card className="border-border">
@@ -126,7 +123,7 @@ const ProductDetail = () => {
 
                 <Button variant="outline" size="sm" className="w-full">
                   <Users className="h-4 w-4" />
-                  View Full DAO Verification History
+                  View Full Verification Report
                 </Button>
               </CardContent>
             </Card>
