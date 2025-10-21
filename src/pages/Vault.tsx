@@ -155,7 +155,8 @@ const Vault = () => {
                       <CardContent className="pt-6">
                         <div className="flex items-start gap-6">
                           <div className="w-20 h-20 bg-secondary rounded-lg border border-border flex items-center justify-center shrink-0">
-                            <Shield className="h-8 w-8 text-primary/30" />
+                            {/* <Shield className="h-8 w-8 text-primary/30" /> */}
+                            <img src="/assets/TestDigital.jpg" alt="" />
                           </div>
 
                           <div className="flex-1 min-w-0">
