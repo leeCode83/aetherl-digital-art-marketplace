@@ -45,7 +45,7 @@ export const Navigation = () => {
                   Dashboard
                 </Button>
               </Link>
-              <Link to="/dao-verifier">
+              {/* <Link to="/dao-verifier">
                 <Button 
                   variant="ghost" 
                   size="sm"
@@ -53,13 +53,13 @@ export const Navigation = () => {
                 >
                   DAO Verifier
                 </Button>
-              </Link>
+              </Link> */}
             </div>
           </div>
 
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex items-center gap-2 px-4 py-2 bg-secondary rounded-lg border border-border">
-              <div className="w-2 h-2 bg-success rounded-full animate-pulse" />
+              <div className="w-2 h-2 bg-[#33FF00] rounded-full animate-pulse" />
               <span className="text-sm font-medium">Base Network</span>
             </div>
             <Button variant="outline" size="sm">

@@ -103,7 +103,7 @@ const Vault = () => {
                   <p className="text-sm text-muted-foreground mb-1">Owned Licenses (CLTs)</p>
                   <p className="text-3xl font-bold text-primary">{mockOwnedAssets.length}</p>
                 </div>
-                <FileText className="h-10 w-10 text-primary/20" />
+                <FileText className="h-10 w-10 text-[#FFC300]" />
               </div>
             </CardContent>
           </Card>
@@ -115,7 +115,7 @@ const Vault = () => {
                   <p className="text-sm text-muted-foreground mb-1">Creator GOTs</p>
                   <p className="text-3xl font-bold text-success">{mockCreatorAssets.length}</p>
                 </div>
-                <Shield className="h-10 w-10 text-success/20" />
+                <Shield className="h-10 w-10 text-[#008CFF]" />
               </div>
             </CardContent>
           </Card>
@@ -127,7 +127,7 @@ const Vault = () => {
                   <p className="text-sm text-muted-foreground mb-1">Total CLTs Sold</p>
                   <p className="text-3xl font-bold text-primary">248</p>
                 </div>
-                <DollarSign className="h-10 w-10 text-primary/20" />
+                <DollarSign className="h-10 w-10 text-[#1EFF00]" />
               </div>
             </CardContent>
           </Card>
@@ -166,7 +166,7 @@ const Vault = () => {
                                   Created by <span className="font-mono">{asset.creator}</span>
                                 </p>
                               </div>
-                              <Badge variant="secondary" className="bg-success/20 text-success border-success/30">
+                              <Badge variant="secondary" className="bg-[#1EFF00] text-success border-success/30">
                                 Active
                               </Badge>
                             </div>

@@ -25,7 +25,7 @@ const App = () => (
           <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/marketplace/:id" element={<ProductDetail />} />
           <Route path="/vault" element={<Vault />} />
-          <Route path="/dao-verifier" element={<DAOVerifier />} />
+          {/* <Route path="/dao-verifier" element={<DAOVerifier />} /> */}
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

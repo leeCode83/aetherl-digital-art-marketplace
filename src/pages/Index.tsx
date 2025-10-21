@@ -14,7 +14,7 @@ const Index = () => {
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-4">
             <Shield className="h-4 w-4 text-primary" />
-            <span className="text-sm font-semibold text-primary">Built on Base L2 Network</span>
+            <span className="text-sm font-semibold text-primary">Built on Sepolia Testnet</span>
           </div>
           
           <h1 className="text-5xl md:text-7xl font-bold leading-tight">
@@ -24,8 +24,7 @@ const Index = () => {
           </h1>
           
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Aethel establishes permanent, verifiable ownership records for digital and
-            physical creative assets through DAO-verified blockchain stamps.
+            Aethel is the provenance-first marketplace where creative assets are secured by a two-stage verification filter, guaranteeing immutable ownership (GOT) and verifiable usage licenses (CLT) for every transaction.
           </p>
           
           <div className="flex gap-4 justify-center pt-6">
@@ -47,10 +46,10 @@ const Index = () => {
 
       {/* Features Grid */}
       <section className="container mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="border-border bg-card">
+        <div className="flex flex-col sm:flex-row flex-wrap justify-center items-stretch gap-6">
+          <Card className="border-border bg-card flex-1 min-w-[250px] max-w-[320px]">
             <CardContent className="pt-6">
-              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+              <div className="w-12 h-12 bg-[#00B8A2] rounded-lg flex items-center justify-center mb-4">
                 <Lock className="h-6 w-6 text-primary" />
               </div>
               <h3 className="text-lg font-semibold mb-2">Genesis Origin Token</h3>
@@ -60,21 +59,21 @@ const Index = () => {
             </CardContent>
           </Card>
 
-          <Card className="border-border bg-card">
+          <Card className="border-border bg-card flex-1 min-w-[250px] max-w-[320px]">
             <CardContent className="pt-6">
-              <div className="w-12 h-12 bg-success/10 rounded-lg flex items-center justify-center mb-4">
+              <div className="w-12 h-12 bg-[#40B800] rounded-lg flex items-center justify-center mb-4">
                 <Users className="h-6 w-6 text-success" />
               </div>
-              <h3 className="text-lg font-semibold mb-2">DAO Verification</h3>
+              <h3 className="text-lg font-semibold mb-2">Third Party Verification</h3>
               <p className="text-sm text-muted-foreground">
-                Community-driven 48-hour verification ensures authenticity and originality
+                External verification from Expert ensures authenticity and originality
               </p>
             </CardContent>
           </Card>
 
-          <Card className="border-border bg-card">
+          <Card className="border-border bg-card flex-1 min-w-[250px] max-w-[320px]">
             <CardContent className="pt-6">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+              <div className="w-12 h-12 bg-[#FF7700] rounded-lg flex items-center justify-center mb-4">
                 <FileText className="h-6 w-6 text-accent" />
               </div>
               <h3 className="text-lg font-semibold mb-2">Consumption Licenses</h3>
@@ -83,20 +82,9 @@ const Index = () => {
               </p>
             </CardContent>
           </Card>
-
-          <Card className="border-border bg-card">
-            <CardContent className="pt-6">
-              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                <Zap className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Base L2 Speed</h3>
-              <p className="text-sm text-muted-foreground">
-                Fast, low-cost transactions on Ethereum's most efficient Layer 2 network
-              </p>
-            </CardContent>
-          </Card>
         </div>
       </section>
+
 
       {/* How It Works */}
       <section className="container mx-auto px-6 py-16">
@@ -128,10 +116,10 @@ const Index = () => {
                     2
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Community Verification</h3>
+                    <h3 className="text-xl font-semibold mb-2">External Curator Review</h3>
                     <p className="text-muted-foreground">
-                      The DAO reviews your submission for originality over a 48-hour period. Your
-                      stake is returned upon approval, or forfeited if the work fails verification.
+                      
+                      The submission enters a review period where an External Curator Oracle verifies the work against plagiarism and content standards. Your stake is returned upon approval, or forfeited if the work fails the verification.
                     </p>
                   </div>
                 </div>
@@ -158,24 +146,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="container mx-auto px-6 py-16">
-        <Card className="border-border bg-secondary">
-          <CardContent className="pt-12 pb-12 text-center">
-            <h2 className="text-3xl font-bold mb-4">Ready to Establish Your Provenance?</h2>
-            <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Join creators worldwide who trust Aethel for immutable ownership records
-              and transparent licensing on the Base L2 Network.
-            </p>
-            <Link to="/registry">
-              <Button size="lg" className="text-base">
-                <Shield className="h-5 w-5" />
-                Get Started Now
-              </Button>
-            </Link>
-          </CardContent>
-        </Card>
-      </section>
     </div>
   );
 };
