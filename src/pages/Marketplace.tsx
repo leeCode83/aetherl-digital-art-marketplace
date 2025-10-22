@@ -167,29 +167,37 @@ const Marketplace = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      <div className="container mx-auto px-6 py-12">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">Marketplace</h1>
-          <p className="text-muted-foreground">
-            Discover and license verified creative works with immutable provenance
+      <div className="container mx-auto px-12 py-16">
+        {/* Header Section: Tambahkan mx-auto dan text-center */}
+        <div className="max-w-4xl mb-10 mx-auto text-center">
+          <h1 className="text-3xl md:text-5xl font-extrabold leading-none tracking-tight mb-3">
+            Aethel <span className="text-primary">Marketplace</span>
+          </h1>
+          <p className="text-md text-muted-foreground max-w-3xl mx-auto">
+            Discover verifiable creative works, powered by immutable provenance on the Sepolia Testnet.
           </p>
         </div>
 
-        {/* Search Bar */}
-        <div className="mb-8">
-          <div className="relative max-w-2xl">
-            <Search className="absolute left-4 top-3.5 h-5 w-5 text-muted-foreground" />
-            <Input
-              placeholder="Search by title or creator..."
-              className="pl-12 h-12"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
+        {/* Search Bar Section: Tambahkan mx-auto pada Card */}
+        <div className="mb-10">
+          <Card className="max-w-3xl border-border/50 mx-auto">
+            <div className="relative flex items-center p-2">
+              <Search className="absolute left-4 h-5 w-5 text-muted-foreground" />
+              <Input
+                placeholder="Search artworks, music, comics, or creator addresses..."
+                className="pl-12 h-12 text-base border-none focus-visible:ring-0 shadow-none bg-transparent"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <Button size="sm" className="h-10 text-base">
+                Search
+              </Button>
+            </div>
+          </Card>
         </div>
 
         {/* Category Filters */}
-        <div className="flex flex-wrap gap-3 mb-8">
+        <div className="flex flex-wrap  gap-3 mb-8">
           {categories.map((category) => {
             const Icon = category.icon;
             const isActive = selectedCategory === category.name;
@@ -215,55 +223,45 @@ const Marketplace = () => {
         </div>
 
         {/* Products Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6">
           {filteredProducts.map((product) => (
             <Link key={product.id} to={`/marketplace/${product.id}`}>
-              <Card className="border-border hover:border-primary/50 transition-all duration-300 h-full group cursor-pointer">
-                <CardContent className="pt-6">
-                  {/* Asset Preview */}
-                  <div className="aspect-square bg-secondary rounded-lg border border-border flex items-center justify-center mb-4 overflow-hidden group-hover:border-primary/30 transition-colors">
-                    <img src="/assets/TestDigital.jpg" alt="" />
+              <Card className="border-border hover:border-primary/50 transition-all duration-300 h-full group cursor-pointer overflow-hidden p-0">
+                {/* Asset Preview */}
+                <div className="aspect-square bg-secondary rounded-t-lg flex items-center justify-center overflow-hidden">
+                  {/* Menggunakan gambar mock yang tersedia */}
+                  <img src="/assets/TestDigital.jpg" alt={product.title} className="w-full h-full object-cover" />
+                </div>
+
+                {/* Product Info Footer */}
+                <div className="p-4 bg-card text-foreground">
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    {/* Judul Produk */}
+                    <h3 className="font-semibold leading-tight line-clamp-1 group-hover:text-primary transition-colors">
+                      {product.title}
+                    </h3>
+                    {/* Badge Verifikasi yang Ringkas */}
+                    {product.verified && (
+                      <Badge variant="secondary" className="bg-success/20 text-success border-success/30 shrink-0">
+                        <Shield className="h-3 w-3" />
+                      </Badge>
+                    )}
                   </div>
 
-                  {/* Product Info */}
-                  <div className="space-y-3">
-                    <div className="flex items-start justify-between gap-2">
-                      <h3 className="font-semibold leading-tight group-hover:text-primary transition-colors line-clamp-2">
-                        {product.title}
-                      </h3>
-                      {product.verified && (
-                        <Badge variant="secondary" className="bg-success/20 text-success border-success/30 shrink-0">
-                          <Shield className="h-3 w-3" />
-                        </Badge>
-                      )}
-                    </div>
-
+                  <div className="flex items-end justify-between">
+                    {/* Creator Info */}
                     <div>
-                      <p className="text-xs text-muted-foreground mb-1">GOT ID</p>
-                      <p className="text-sm font-mono text-primary">{product.gotId}</p>
+                      <p className="text-xs text-muted-foreground mb-0.5">Creator</p>
+                      <p className="text-sm font-mono truncate">{product.creator}</p>
                     </div>
 
-                    <div>
-                      <p className="text-xs text-muted-foreground mb-1">Creator</p>
-                      <p className="text-sm font-mono">{product.creator}</p>
+                    {/* Price Range */}
+                    <div className="text-right">
+                      <p className="text-xs text-muted-foreground mb-0.5">Price</p>
+                      <p className="text-lg font-bold text-primary">${product.priceMin} - ${product.priceMax}</p>
                     </div>
-
-                    <div className="flex items-center justify-between pt-2 border-t border-border">
-                      <div>
-                        <p className="text-xs text-muted-foreground mb-1">Price Range</p>
-                        <p className="text-lg font-bold text-primary">${product.priceMin} - ${product.priceMax}</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-xs text-muted-foreground mb-1">CLTs Sold</p>
-                        <p className="text-sm font-semibold">{product.cltsSold}</p>
-                      </div>
-                    </div>
-
-                    <Badge variant="secondary" className="w-full justify-center">
-                      {product.category}
-                    </Badge>
                   </div>
-                </CardContent>
+                </div>
               </Card>
             </Link>
           ))}

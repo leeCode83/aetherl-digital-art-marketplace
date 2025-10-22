@@ -8,7 +8,7 @@ export const Navigation = () => {
 
   return (
     <nav className="border-b border-border bg-card">
-      <div className="container mx-auto px-6 py-4">
+      <div className="container mx-auto px-20 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-8">
             <Link to="/" className="flex items-center gap-2">
