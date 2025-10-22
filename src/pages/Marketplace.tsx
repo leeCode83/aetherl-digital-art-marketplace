@@ -167,7 +167,7 @@ const Marketplace = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      <div className="container mx-auto px-12 py-16">
+      <div className="container mx-auto px-20 py-10">
         {/* Header Section: Tambahkan mx-auto dan text-center */}
         <div className="max-w-4xl mb-10 mx-auto text-center">
           <h1 className="text-3xl md:text-5xl font-extrabold leading-none tracking-tight mb-3">
