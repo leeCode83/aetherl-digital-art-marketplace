@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-// Tambahkan Dialog untuk Modal
+// Add Dialog for Modal
 import {
   Dialog,
   DialogContent,
@@ -22,7 +22,6 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   Shield,
@@ -33,6 +32,7 @@ import {
   Gem,
   Link as LinkIcon,
   CheckCircle,
+  Hash,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -41,9 +41,25 @@ type GenesisForm = {
   title: string;
   category: string;
   description: string;
-  assetLink: string; // Link wajib ke karya asli
-  metadataLink: string; // Link opsional
+  assetLink: string; // Mandatory link to the original work
+  metadataLink: string; // Optional link
+  fileHash: string; // Calculated hash of the uploaded file
 };
+
+// --- SIMULASI FUNGSI HASHING (Karena lingkungan terbatas) ---
+// Dalam aplikasi nyata, ini akan menggunakan crypto library (e.g., SubtleCrypto, js-sha256)
+const calculateFileHash = (file: File): Promise<string> => {
+  return new Promise((resolve) => {
+    // Simulasi SHA-256 hash dari file
+    const mockHash = `0x${Math.random().toString(16).substring(2, 12)}${file.name.length}${Date.now()}`.padEnd(66, '0');
+    // Simulasi delay penghitungan
+    setTimeout(() => {
+      resolve(mockHash.slice(0, 66));
+    }, 500);
+  });
+};
+// -----------------------------------------------------------------
+
 
 const Vault = () => {
   // State untuk form Genesis
@@ -53,8 +69,10 @@ const Vault = () => {
     description: "",
     assetLink: "",
     metadataLink: "",
+    fileHash: "", // New state for file hash
   });
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
   // Data pengguna saat ini (mocked)
   const currentCreatorWallet = "0x3B9a...4C7e";
@@ -69,7 +87,7 @@ const Vault = () => {
     { id: 4, type: "GOT", title: "Ethereal Melodies Vol. 2", creator: `You (${currentCreatorWallet})`, creationDate: "2023-11-20", assetId: "GOT-9234" },
   ];
 
-  const mockCreatorAssets = [ /* ... data untuk Stats Overview ... */];
+  const mockCreatorAssets = [ /* ... data for Stats Overview ... */];
   const mockTotalClts = mockCreatorAssets.reduce((sum, asset) => sum + asset.cltSold, 0);
   const mockOwnedCltsCount = mockOwnedAssets.filter(a => a.type === 'CLT').length;
   const mockOwnedGotsCount = mockOwnedAssets.filter(a => a.type === 'GOT').length;
@@ -84,10 +102,32 @@ const Vault = () => {
     setFormData(prev => ({ ...prev, category: value }));
   };
 
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      setFormData(prev => ({ ...prev, fileHash: "" }));
+      return;
+    }
+
+    setIsUploading(true);
+    toast.info(`Calculating hash for ${file.name}...`);
+
+    try {
+      const hash = await calculateFileHash(file);
+      setFormData(prev => ({ ...prev, fileHash: hash }));
+      toast.success(`File hash calculated successfully!`);
+    } catch (error) {
+      toast.error("Failed to calculate file hash.");
+      setFormData(prev => ({ ...prev, fileHash: "" }));
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
   const handleInitiateStamp = () => {
-    // Logika pengiriman data ke smart contract
+    // Logic to send data to the smart contract
     toast.success(`Genesis Stamp initiated for "${formData.title}"! Your work is submitted for verification.`);
-    setIsDialogOpen(false); // Tutup modal setelah submit berhasil
+    setIsDialogOpen(false); // Close modal on successful submit
     // Reset form
     setFormData({
       title: "",
@@ -95,19 +135,21 @@ const Vault = () => {
       description: "",
       assetLink: "",
       metadataLink: "",
+      fileHash: "",
     });
   };
 
   const validateForm = () => {
-    const { title, category, description, assetLink } = formData;
-    return title && category && description && assetLink;
+    const { title, category, description, assetLink, fileHash } = formData;
+    // fileHash is now mandatory
+    return title && category && description && assetLink && fileHash;
   };
 
   const openPreviewModal = () => {
     if (validateForm()) {
       setIsDialogOpen(true);
     } else {
-      toast.error("Please fill in all required fields (Title, Category, Description, and Asset Link).");
+      toast.error("Please fill in all required fields (Title, Category, Description, Asset Link, and upload the file).");
     }
   };
 
@@ -118,9 +160,9 @@ const Vault = () => {
 
       <div className="container mx-auto px-20 py-10">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">Dashboard</h1>
+          <h1 className="text-4xl font-bold mb-2">Creator Dashboard</h1>
           <p className="text-muted-foreground">
-            Manage your owned licenses (CLT) and intellectual property (GOT)
+            Manage your owned licenses (CLT) and intellectual property (GOT).
           </p>
         </div>
 
@@ -169,10 +211,10 @@ const Vault = () => {
             <TabsTrigger value="creator">Genesis Stamp</TabsTrigger>
           </TabsList>
 
-          {/* Tab 1: My Owned Assets (CLT & GOT) - DIPISAHKAN BERDASARKAN TIPE */}
+          {/* Tab 1: My Owned Assets (CLT & GOT) - SEPARATED BY TYPE */}
           <TabsContent value="owned" className="space-y-6">
 
-            {/* --- KATEGORI 1: MY OWNERSHIP TOKENS (GOT) --- */}
+            {/* --- CATEGORY 1: MY OWNERSHIP TOKENS (GOT) --- */}
             <Card className="border-border">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-xl">
@@ -180,7 +222,7 @@ const Vault = () => {
                   My Ownership Tokens (GOT)
                 </CardTitle>
                 <p className="text-sm text-muted-foreground">
-                  Bukti kepemilikan abadi dan hak cipta utama (IP) yang Anda miliki.
+                  Immutable proof of your original intellectual property (IP).
                 </p>
               </CardHeader>
               <CardContent>
@@ -196,13 +238,12 @@ const Vault = () => {
                             <div>
                               <h3 className="font-semibold text-base mb-0.5">{asset.title}</h3>
                               <p className="text-xs text-muted-foreground">
-                                {/* Menggunakan 'assetId' sebagai GOT */}
                                 Creation Date <span className="font-mono text-primary font-medium">{asset.creationDate}</span>
                               </p>
                             </div>
                           </div>
 
-                          {/* Date & Action */}
+                          {/* Action */}
                           <Button variant="default" size="sm" className="shrink-0">
                             <Send className="h-4 w-4" />
                             Manage & List
@@ -211,11 +252,14 @@ const Vault = () => {
                       </CardContent>
                     </Card>
                   ))}
+                  {mockOwnedAssets.filter(a => a.type === 'GOT').length === 0 && (
+                    <p className="text-sm text-muted-foreground text-center py-4">No Genesis Ownership Tokens (GOT) found.</p>
+                  )}
                 </div>
               </CardContent>
             </Card>
 
-            {/* --- KATEGORI 2: MY LICENSES (CLT) --- */}
+            {/* --- CATEGORY 2: MY LICENSES (CLT) --- */}
             <Card className="border-border">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-xl">
@@ -223,7 +267,7 @@ const Vault = () => {
                   My Licenses (CLT)
                 </CardTitle>
                 <p className="text-sm text-muted-foreground">
-                  Bukti lisensi penggunaan legal (Consumption License Token) yang telah Anda beli.
+                  Proof of legal usage licenses (Consumption License Tokens) you have acquired.
                 </p>
               </CardHeader>
               <CardContent>
@@ -272,16 +316,19 @@ const Vault = () => {
                       </CardContent>
                     </Card>
                   ))}
+                  {mockOwnedAssets.filter(a => a.type === 'CLT').length === 0 && (
+                    <p className="text-sm text-muted-foreground text-center py-4">No Consumption License Tokens (CLT) found.</p>
+                  )}
                 </div>
               </CardContent>
             </Card>
 
           </TabsContent>
 
-          {/* Tab 2: Creator's Genesis & Listing (Hanya Form Pendaftaran) */}
+          {/* Tab 2: Creator's Genesis & Listing (Form Pendaftaran) */}
           <TabsContent value="creator" className="space-y-6">
 
-            {/* Modal Pratinjau Metadata */}
+            {/* Modal Preview Metadata */}
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogContent className="sm:max-w-[500px]">
                 <DialogHeader>
@@ -290,35 +337,42 @@ const Vault = () => {
                     Confirm Genesis Metadata
                   </DialogTitle>
                   <DialogDescription>
-                    Review detail karya Anda sebelum mengirimkannya ke DAO untuk verifikasi.
+                    Review your work details before submitting them to the DAO for verification.
                   </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                   <div className="space-y-1">
-                    <Label className="font-semibold">Judul</Label>
+                    <Label className="font-semibold">Title</Label>
                     <p className="text-sm">{formData.title}</p>
                   </div>
                   <div className="space-y-1">
-                    <Label className="font-semibold">Kreator (Wallet)</Label>
+                    <Label className="font-semibold">Creator (Wallet)</Label>
                     <p className="text-sm font-mono text-muted-foreground">{currentCreatorWallet}</p>
                   </div>
                   <div className="space-y-1">
-                    <Label className="font-semibold">Tipe Karya & Harga Dasar</Label>
-                    <div className="flex gap-2">
-                      <Badge variant="secondary">{formData.category}</Badge>
-                    </div>
+                    <Label className="font-semibold">Work Type</Label>
+                    <Badge variant="secondary">{formData.category}</Badge>
                   </div>
                   <div className="space-y-1">
-                    <Label className="font-semibold">Deskripsi</Label>
+                    <Label className="font-semibold">Description</Label>
                     <p className="text-sm text-muted-foreground italic">{formData.description}</p>
                   </div>
+
                   <div className="space-y-1 pt-2 border-t">
-                    <Label className="font-semibold">Link Karya Asli (Wajib)</Label>
+                    <Label className="font-semibold flex items-center gap-1">
+                      <Hash className="h-4 w-4" />
+                      File Integrity Hash (SHA-256)
+                    </Label>
+                    <p className="text-sm break-all font-mono text-success">{formData.fileHash}</p>
+                  </div>
+
+                  <div className="space-y-1">
+                    <Label className="font-semibold">Original Asset Link (Mandatory)</Label>
                     <p className="text-sm break-all text-primary underline">{formData.assetLink}</p>
                   </div>
                   {formData.metadataLink && (
                     <div className="space-y-1">
-                      <Label className="font-semibold">Link Metadata Tambahan (Opsional)</Label>
+                      <Label className="font-semibold">Additional Metadata Link (Optional)</Label>
                       <p className="text-sm break-all text-muted-foreground underline">{formData.metadataLink}</p>
                     </div>
                   )}
@@ -342,7 +396,7 @@ const Vault = () => {
                   Genesis Stamp - Register New Artwork
                 </CardTitle>
                 <p className="text-sm text-muted-foreground">
-                  Submit your creative work for verification and minting your work's GOT
+                  Submit your creative work for verification and minting your work's GOT.
                 </p>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -383,10 +437,34 @@ const Vault = () => {
                   />
                 </div>
 
+                {/* --- FILE UPLOAD AND HASHING --- */}
+                <div className="space-y-2 pt-2 border-t">
+                  <Label htmlFor="assetFile" className="flex items-center gap-2">
+                    <Upload className="h-4 w-4 text-muted-foreground" />
+                    Upload File to Calculate Hash (Mandatory)
+                  </Label>
+                  <Input
+                    id="assetFile"
+                    type="file"
+                    onChange={handleFileChange}
+                    disabled={isUploading}
+                    className="cursor-pointer file:cursor-pointer"
+                  />
+                  {formData.fileHash ? (
+                    <div className="flex items-center gap-2 text-sm text-success pt-1">
+                      <Hash className="h-4 w-4" />
+                      Hash Calculated: {formData.fileHash.slice(0, 10)}...
+                    </div>
+                  ) : isUploading ? (
+                    <div className="text-sm text-muted-foreground pt-1">Calculating hash, please wait...</div>
+                  ) : null}
+                </div>
+                {/* --- END FILE UPLOAD --- */}
+
                 <div className="space-y-2">
                   <Label htmlFor="assetLink" className="flex items-center gap-2">
                     <LinkIcon className="h-4 w-4 text-muted-foreground" />
-                    Link Karya Asli (IPFS/Arweave URL - Wajib)
+                    Original Asset Link (IPFS/Arweave URL - Mandatory)
                   </Label>
                   <Input
                     id="assetLink"
@@ -399,7 +477,7 @@ const Vault = () => {
                 <div className="space-y-2">
                   <Label htmlFor="metadataLink" className="flex items-center gap-2">
                     <LinkIcon className="h-4 w-4 text-muted-foreground" />
-                    Link Metadata Tambahan (Opsional - z.B. Kontrak Legal)
+                    Additional Metadata Link (Optional - e.g. Legal Contract)
                   </Label>
                   <Input
                     id="metadataLink"
@@ -418,7 +496,7 @@ const Vault = () => {
                   </ul>
                 </div>
 
-                <Button className="w-full" size="lg" onClick={openPreviewModal}>
+                <Button className="w-full" size="lg" onClick={openPreviewModal} disabled={isUploading}>
                   <Shield className="h-5 w-5" />
                   Preview Metadata & Initiate Stamp
                 </Button>

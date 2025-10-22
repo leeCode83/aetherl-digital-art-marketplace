@@ -27,9 +27,9 @@ const ProductDetail = () => {
     cltsSold: 45,
     maxClts: 1000,
     licenses: [
-      { id: "personal", name: "Personal Use License (CLT-1)", price: 5, description: "For personal, non-commercial use only. Low volume CLTs available." },
-      { id: "commercial", name: "Commercial Use License (CLT-2)", price: 50, description: "Full commercial rights with required creator attribution. Medium volume CLTs available." },
-      { id: "exclusive", name: "Exclusive License (CLT-3)", price: 150, description: "Exclusive commercial rights for a limited time. Very limited CLTs available." },
+      { id: "personal", name: "Personal Use License (CLT-1)", price: 5, description: "Personal use only" },
+      { id: "commercial", name: "Commercial Use License (CLT-2)", price: 50, description: "Full commercial rights with required creator attribution" },
+      { id: "exclusive", name: "Exclusive License (CLT-3)", price: 150, description: "Exclusive commercial rights for a limited time" },
     ],
   };
 
@@ -47,12 +47,12 @@ const ProductDetail = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
 
-      <div className="container mx-auto px-20 py-6">
+      <div className="container mx-auto px-20 py-3">
         {/* Back Button */}
         <Link to="/marketplace" className="inline-block mb-6">
           <Button variant="ghost" size="sm">
             <ArrowLeft className="h-4 w-4" />
-            Back to Marketplace
+            Back
           </Button>
         </Link>
 
@@ -144,24 +144,17 @@ const ProductDetail = () => {
                   Acquire Usage License (CLT)
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3 p-4"> {/* Spacing content dikurangi ke space-y-3 */}
-
-                {/* Current License Price Display (Top) */}
-                <div className="flex items-center justify-between p-2 bg-secondary rounded-md border border-border"> {/* Padding dikurangi ke p-2, rounded dikurangi ke rounded-md */}
-                  <span className="text-sm text-black font-medium">Total Price:</span> {/* Ukuran font dikurangi */}
-                  <p className="text-2xl font-bold text-primary">${currentLicense?.price}</p> {/* Ukuran font dikurangi ke text-2xl */}
-                </div>
+              <CardContent className="space-y-4 p-4"> {/* Spacing content dipertahankan 4 untuk jarak yang cukup */}
 
                 {/* License Selection Widget */}
                 <div className="space-y-2">
-                  <Label className="text-xs font-semibold text-foreground">Choose License Type</Label> {/* Ukuran font dikurangi ke text-xs */}
+                  <Label className="text-xs font-semibold text-foreground">Choose License Type</Label>
                   <RadioGroup value={selectedLicense} onValueChange={setSelectedLicense}>
                     {product.licenses.map((license) => (
                       <div
                         key={license.id}
-                        className={`flex items-start gap-2 p-2 rounded-lg border-2 transition-all cursor-pointer ${ /* Padding dikurangi ke p-2, gap dikurangi ke gap-2 */
-                          selectedLicense === license.id
-                            ? "border-primary bg-primary/5 shadow-none" /* Shadow dihilangkan */
+                        className={`flex items-start gap-2 p-2 rounded-lg border-2 transition-all cursor-pointer ${selectedLicense === license.id
+                            ? "border-primary bg-primary/5 shadow-none"
                             : "border-border bg-card hover:border-primary/50"
                           }`}
                         onClick={() => setSelectedLicense(license.id)}
@@ -169,26 +162,56 @@ const ProductDetail = () => {
                         <RadioGroupItem value={license.id} id={license.id} className="mt-1 shrink-0" />
                         <div className="flex-1">
                           <Label htmlFor={license.id} className="cursor-pointer">
-                            <div className="flex items-center justify-between mb-0"> {/* Margin bawah dihilangkan */}
-                              <span className="font-semibold text-xs">{license.name}</span> {/* Ukuran font dikurangi ke text-xs */}
+                            <div className="flex items-center justify-between mb-0">
+                              <span className="font-semibold text-xs">{license.name}</span>
                             </div>
                             <p className="text-xs text-muted-foreground/80 leading-snug">{license.description}</p>
                           </Label>
                         </div>
-                        <span className="text-primary font-bold text-base shrink-0">${license.price}</span> {/* Ukuran font dikurangi ke text-base */}
+                        <span className="text-primary font-bold text-base shrink-0">${license.price}</span>
                       </div>
                     ))}
                   </RadioGroup>
                 </div>
 
+                {/* Current License Price Display (Subtotal) */}
+                <div className="p-2 bg-secondary rounded-md border border-border">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-foreground font-medium">License Price (Subtotal)</span>
+                    <p className="text-xl font-bold text-primary">${currentLicense?.price.toFixed(2)}</p>
+                  </div>
+                </div>
+
+                {/* --- RINCIAN PEMBAYARAN BARU (ENGLISH) --- */}
+                <div className="space-y-2 pt-2 border-t border-border">
+                  <Label className="text-sm font-semibold text-foreground block">Payment Breakdown</Label>
+
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">Transaction Tax (11%)</span>
+                    <span className="font-medium">${(currentLicense?.price * 0.11).toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">Platform Fee (5%)</span>
+                    <span className="font-medium">${(currentLicense?.price * 0.05).toFixed(2)}</span>
+                  </div>
+
+                  {/* Total Line */}
+                  <div className="flex justify-between pt-2 border-t border-dashed border-border/50">
+                    <span className="text-base font-semibold">TOTAL DUE</span>
+                    <span className="text-xl font-bold text-primary">${(currentLicense?.price * 1.16).toFixed(2)}</span>
+                  </div>
+                </div>
+                {/* --- AKHIR RINCIAN PEMBAYARAN --- */}
+
+
                 {/* Action Section */}
                 <div className="pt-3 border-t border-border space-y-3">
-                  <div className="flex items-start gap-2 p-2 bg-card border border-border rounded-md"> {/* Padding dan gap dikurangi */}
+                  <div className="flex items-start gap-2 p-2 bg-card border border-border rounded-md">
                     <Checkbox
                       id="terms"
                       checked={agreedToTerms}
                       onCheckedChange={(checked) => setAgreedToTerms(checked as boolean)}
-                      className="mt-0.5 shrink-0 h-3 w-3" /* Checkbox dibuat lebih kecil */
+                      className="mt-0.5 shrink-0 h-3 w-3"
                     />
                     <label
                       htmlFor="terms"
@@ -203,8 +226,8 @@ const ProductDetail = () => {
                   </div>
 
                   <Button
-                    className="w-full text-sm" /* Ukuran text button dikurangi ke text-sm */
-                    size="sm" /* Ukuran button dikurangi ke sm */
+                    className="w-full text-sm"
+                    size="sm"
                     onClick={handlePurchase}
                     disabled={!agreedToTerms}
                   >
@@ -214,14 +237,14 @@ const ProductDetail = () => {
                 </div>
 
                 {/* Distribution Tracker */}
-                <div className="pt-2 border-t border-border"> {/* Padding dikurangi */}
+                <div className="pt-2 border-t border-border">
                   <div className="flex items-center justify-between text-xs mb-1">
                     <span className="text-muted-foreground font-medium">CLT Distribution Tracker</span>
-                    <Badge variant="secondary" className="text-xs h-4 px-2 py-0"> {/* Tinggi badge dikurangi */}
+                    <Badge variant="secondary" className="text-xs h-4 px-2 py-0">
                       CLTs Sold: {product.cltsSold} / {product.maxClts}
                     </Badge>
                   </div>
-                  <div className="h-1 bg-secondary rounded-full overflow-hidden">
+                  <div className="h-1 bg-primary/20 rounded-full overflow-hidden">
                     <div
                       className="h-full bg-primary transition-all duration-300"
                       style={{ width: `${(product.cltsSold / product.maxClts) * 100}%` }}
