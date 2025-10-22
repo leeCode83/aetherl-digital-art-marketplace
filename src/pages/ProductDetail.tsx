@@ -47,7 +47,7 @@ const ProductDetail = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
 
-      <div className="container mx-auto px-20 py-12">
+      <div className="container mx-auto px-20 py-6">
         {/* Back Button */}
         <Link to="/marketplace" className="inline-block mb-6">
           <Button variant="ghost" size="sm">
