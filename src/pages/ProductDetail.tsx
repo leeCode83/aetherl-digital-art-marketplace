@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Shield, ExternalLink, Lock, Users, DollarSign, ArrowLeft, Gem } from "lucide-react";
 import { toast } from "sonner";
 
@@ -127,10 +128,66 @@ const ProductDetail = () => {
                   <p className="font-mono font-semibold text-sm">{product.creator}</p>
                 </div>
 
-                <Button variant="outline" size="sm" className="w-full">
-                  <Users className="h-4 w-4" />
-                  View Full Verification Report
-                </Button>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" size="sm" className="w-full">
+                      <Users className="h-4 w-4" />
+                      View Full Verification Report
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[500px]" align="start">
+                    <div className="space-y-4">
+                      <div>
+                        <h3 className="font-semibold text-lg mb-3">Verification Report</h3>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2">
+                          <Shield className="h-4 w-4 text-primary" />
+                          <span className="text-sm font-semibold">Verificator:</span>
+                          <span className="text-sm font-mono">External Curator DAO</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Lock className="h-4 w-4 text-primary" />
+                          <span className="text-sm font-semibold">Verification Date:</span>
+                          <span className="text-sm">March 15, 2024</span>
+                        </div>
+                      </div>
+
+                      <div className="pt-2 border-t border-border">
+                        <h4 className="font-semibold text-sm mb-2">Verification Summary</h4>
+                        <p className="text-sm text-muted-foreground mb-3">
+                          This digital asset has undergone a comprehensive two-stage verification process 
+                          ensuring authenticity and originality.
+                        </p>
+                        
+                        <h4 className="font-semibold text-sm mb-2">Key Findings:</h4>
+                        <ul className="space-y-1.5 text-sm text-muted-foreground">
+                          <li className="flex gap-2">
+                            <span className="text-primary">•</span>
+                            <span>Original work confirmed through perceptual hash analysis</span>
+                          </li>
+                          <li className="flex gap-2">
+                            <span className="text-primary">•</span>
+                            <span>No duplicates found in existing registry</span>
+                          </li>
+                          <li className="flex gap-2">
+                            <span className="text-primary">•</span>
+                            <span>Creator identity verified via wallet signature</span>
+                          </li>
+                          <li className="flex gap-2">
+                            <span className="text-primary">•</span>
+                            <span>DAO consensus achieved (97% approval rate)</span>
+                          </li>
+                          <li className="flex gap-2">
+                            <span className="text-primary">•</span>
+                            <span>Genesis Ownership Token (GOT) minted on Base L2</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </PopoverContent>
+                </Popover>
               </CardContent>
             </Card>
           </div>
