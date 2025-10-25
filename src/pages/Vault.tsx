@@ -73,6 +73,16 @@ const Vault = () => {
   });
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  
+  // State for listing management dialog
+  const [isListingDialogOpen, setIsListingDialogOpen] = useState(false);
+  const [selectedAsset, setSelectedAsset] = useState<any>(null);
+  const [licenseSettings, setLicenseSettings] = useState({
+    personalUse: { enabled: true, price: "" },
+    commercialUse: { enabled: true, price: "" },
+    educationalUse: { enabled: false, price: "" },
+    merchandiseRights: { enabled: false, price: "" },
+  });
 
   // Data pengguna saat ini (mocked)
   const currentCreatorWallet = "0x3B9a...4C7e";
@@ -151,6 +161,39 @@ const Vault = () => {
     } else {
       toast.error("Please fill in all required fields (Title, Category, Description, Asset Link, and upload the file).");
     }
+  };
+
+  const openListingDialog = (asset: any) => {
+    setSelectedAsset(asset);
+    setIsListingDialogOpen(true);
+  };
+
+  const handleLicenseToggle = (licenseType: string, enabled: boolean) => {
+    setLicenseSettings(prev => ({
+      ...prev,
+      [licenseType]: { ...prev[licenseType as keyof typeof prev], enabled }
+    }));
+  };
+
+  const handleLicensePrice = (licenseType: string, price: string) => {
+    setLicenseSettings(prev => ({
+      ...prev,
+      [licenseType]: { ...prev[licenseType as keyof typeof prev], price }
+    }));
+  };
+
+  const handleSaveListing = () => {
+    const enabledLicenses = Object.entries(licenseSettings)
+      .filter(([_, settings]) => settings.enabled && settings.price)
+      .map(([type, settings]) => `${type}: $${settings.price}`);
+    
+    if (enabledLicenses.length === 0) {
+      toast.error("Please enable at least one license and set its price.");
+      return;
+    }
+
+    toast.success(`Listing updated for "${selectedAsset?.title}"! Enabled licenses: ${enabledLicenses.join(", ")}`);
+    setIsListingDialogOpen(false);
   };
 
 
@@ -244,7 +287,12 @@ const Vault = () => {
                           </div>
 
                           {/* Action */}
-                          <Button variant="default" size="sm" className="shrink-0">
+                          <Button 
+                            variant="default" 
+                            size="sm" 
+                            className="shrink-0"
+                            onClick={() => openListingDialog(asset)}
+                          >
                             <Send className="h-4 w-4" />
                             Manage & List
                           </Button>
@@ -327,6 +375,160 @@ const Vault = () => {
 
           {/* Tab 2: Creator's Genesis & Listing (Form Pendaftaran) */}
           <TabsContent value="creator" className="space-y-6">
+
+            {/* Listing Management Dialog */}
+            <Dialog open={isListingDialogOpen} onOpenChange={setIsListingDialogOpen}>
+              <DialogContent className="sm:max-w-[600px]">
+                <DialogHeader>
+                  <DialogTitle className="text-xl flex items-center gap-2">
+                    <DollarSign className="h-5 w-5 text-primary" />
+                    Manage Marketplace Listing
+                  </DialogTitle>
+                  <DialogDescription>
+                    Set permitted licenses and their prices for "{selectedAsset?.title}"
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="space-y-4">
+                    {/* Personal Use License */}
+                    <Card className="border-border">
+                      <CardContent className="pt-4">
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-3">
+                            <input
+                              type="checkbox"
+                              checked={licenseSettings.personalUse.enabled}
+                              onChange={(e) => handleLicenseToggle('personalUse', e.target.checked)}
+                              className="w-4 h-4"
+                            />
+                            <div>
+                              <Label className="font-semibold">Personal Use</Label>
+                              <p className="text-xs text-muted-foreground">Non-commercial personal projects</p>
+                            </div>
+                          </div>
+                        </div>
+                        {licenseSettings.personalUse.enabled && (
+                          <div className="flex items-center gap-2">
+                            <Label className="text-sm">Price (USDC):</Label>
+                            <Input
+                              type="number"
+                              placeholder="0.00"
+                              value={licenseSettings.personalUse.price}
+                              onChange={(e) => handleLicensePrice('personalUse', e.target.value)}
+                              className="w-32"
+                            />
+                          </div>
+                        )}
+                      </CardContent>
+                    </Card>
+
+                    {/* Commercial Use License */}
+                    <Card className="border-border">
+                      <CardContent className="pt-4">
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-3">
+                            <input
+                              type="checkbox"
+                              checked={licenseSettings.commercialUse.enabled}
+                              onChange={(e) => handleLicenseToggle('commercialUse', e.target.checked)}
+                              className="w-4 h-4"
+                            />
+                            <div>
+                              <Label className="font-semibold">Commercial Use</Label>
+                              <p className="text-xs text-muted-foreground">Business and revenue-generating projects</p>
+                            </div>
+                          </div>
+                        </div>
+                        {licenseSettings.commercialUse.enabled && (
+                          <div className="flex items-center gap-2">
+                            <Label className="text-sm">Price (USDC):</Label>
+                            <Input
+                              type="number"
+                              placeholder="0.00"
+                              value={licenseSettings.commercialUse.price}
+                              onChange={(e) => handleLicensePrice('commercialUse', e.target.value)}
+                              className="w-32"
+                            />
+                          </div>
+                        )}
+                      </CardContent>
+                    </Card>
+
+                    {/* Educational Use License */}
+                    <Card className="border-border">
+                      <CardContent className="pt-4">
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-3">
+                            <input
+                              type="checkbox"
+                              checked={licenseSettings.educationalUse.enabled}
+                              onChange={(e) => handleLicenseToggle('educationalUse', e.target.checked)}
+                              className="w-4 h-4"
+                            />
+                            <div>
+                              <Label className="font-semibold">Educational Use</Label>
+                              <p className="text-xs text-muted-foreground">Academic and teaching purposes</p>
+                            </div>
+                          </div>
+                        </div>
+                        {licenseSettings.educationalUse.enabled && (
+                          <div className="flex items-center gap-2">
+                            <Label className="text-sm">Price (USDC):</Label>
+                            <Input
+                              type="number"
+                              placeholder="0.00"
+                              value={licenseSettings.educationalUse.price}
+                              onChange={(e) => handleLicensePrice('educationalUse', e.target.value)}
+                              className="w-32"
+                            />
+                          </div>
+                        )}
+                      </CardContent>
+                    </Card>
+
+                    {/* Merchandise Rights License */}
+                    <Card className="border-border">
+                      <CardContent className="pt-4">
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-3">
+                            <input
+                              type="checkbox"
+                              checked={licenseSettings.merchandiseRights.enabled}
+                              onChange={(e) => handleLicenseToggle('merchandiseRights', e.target.checked)}
+                              className="w-4 h-4"
+                            />
+                            <div>
+                              <Label className="font-semibold">Merchandise Rights</Label>
+                              <p className="text-xs text-muted-foreground">Physical products and merchandise</p>
+                            </div>
+                          </div>
+                        </div>
+                        {licenseSettings.merchandiseRights.enabled && (
+                          <div className="flex items-center gap-2">
+                            <Label className="text-sm">Price (USDC):</Label>
+                            <Input
+                              type="number"
+                              placeholder="0.00"
+                              value={licenseSettings.merchandiseRights.price}
+                              onChange={(e) => handleLicensePrice('merchandiseRights', e.target.value)}
+                              className="w-32"
+                            />
+                          </div>
+                        )}
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button type="button" variant="outline" onClick={() => setIsListingDialogOpen(false)}>
+                    Cancel
+                  </Button>
+                  <Button type="submit" onClick={handleSaveListing}>
+                    Save & Update Listing
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
 
             {/* Modal Preview Metadata */}
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
